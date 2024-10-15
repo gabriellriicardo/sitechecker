@@ -1,25 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificador de Sites</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Contador de Visitantes</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Verificador de Sites</h1>
-        <input type="text" id="siteInput" placeholder="Insira o URL do site">
-        <button id="checkButton">Verificar</button>
-        
-        <div id="result" class="result">
-            <div id="status"></div>
-            <img id="favicon" alt="Favicon" />
-            <p id="ip"></p>
-            <img id="screenshot" alt="Screenshot do Site" />
-            <p id="description"></p>
-        </div>
-    </div>
-    <script src="script.js"></script>
+    <h1>Bem-vindo ao site!</h1>
+
+    <!-- Exibe o total de visitantes -->
+    <div id="visitorCount">Total de visitantes: 0</div>
+
+    <!-- Exibe o número de usuários atualmente online -->
+    <div id="onlineCount">Usuários online: 0</div>
+
+    <script>
+        // Fazendo requisição para o contador de visitas
+        fetch('counter.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("visitorCount").innerText = `Total de visitantes: ${data}`;
+            });
+
+        // Função para atualizar o número de usuários online
+        function updateOnlineUsers() {
+            fetch('online.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("onlineCount").innerText = `Usuários online: ${data}`;
+                });
+        }
+
+        // Atualiza o número de usuários online a cada 10 segundos
+        setInterval(updateOnlineUsers, 10000);
+
+        // Chama a função ao carregar a página
+        updateOnlineUsers();
+    </script>
 </body>
 </html>
