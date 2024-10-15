@@ -5,22 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificador de Sites</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Adicione o Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
+    <style>
+        /* Estilo para o widget */
+        .visitor-widget {
+            width: 200px; /* Define uma largura fixa para os widgets */
+            position: fixed; /* Mantém a posição fixa na tela */
+            top: 50px; /* Distância do topo da página */
+            right: 410px; /* Distância da borda direita da página */
+            text-align: left; /* Alinha o conteúdo à esquerda */
+            padding: 10px; /* Adiciona um pouco de espaço interno */
+            background-color: white; /* Fundo branco para os widgets */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
+            z-index: 10; /* Garante que os widgets fiquem acima de outros elementos */
+        }
+
+        .container {
+            margin-center: 220px; /* Deixa espaço para os widgets à direita */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Verificador de Sites</h1>
         <input type="text" id="siteInput" placeholder="Insira o URL do site">
         <button id="checkButton">Verificar</button>
-
-        <!-- Seção de visitantes e pessoas online -->
-        <div id="visitorInfo">
-            <p>Visitantes: <span id="totalVisitors">0</span></p>
-            <p>Pessoas online: <span id="onlineUsers">0</span></p>
-        </div>
-
+        
         <div id="result" class="result">
             <div id="status"></div>
             <img id="favicon" alt="Favicon" />
@@ -29,6 +38,15 @@
             <p id="description"></p>
         </div>
     </div>
+
+    <!-- Widget de acompanhamento de visitantes à direita -->
+    <div class="visitor-widget">
+        <script id="_wau521">var _wau = _wau || []; _wau.push(["map", "y98wuapehc", "521", "126", "63", "textbook", "default-red"]);</script>
+        <script async src="//waust.at/m.js"></script>
+        <script id="_wau89b">var _wau = _wau || []; _wau.push(["small", "y98wuapehc", "89b"]);</script>
+        <script async src="//waust.at/s.js"></script>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
