@@ -1,41 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador de Visitantes</title>
+    <title>Verificador de Sites</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Adicione o Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
 </head>
 <body>
-    <h1>Bem-vindo ao site!</h1>
+    <div class="container">
+        <h1>Verificador de Sites</h1>
+        <input type="text" id="siteInput" placeholder="Insira o URL do site">
+        <button id="checkButton">Verificar</button>
 
-    <!-- Exibe o total de visitantes -->
-    <div id="visitorCount">Total de visitantes: 0</div>
+        <!-- Seção de visitantes e pessoas online -->
+        <div id="visitorInfo">
+            <p>Visitantes: <span id="totalVisitors">0</span></p>
+            <p>Pessoas online: <span id="onlineUsers">0</span></p>
+        </div>
 
-    <!-- Exibe o número de usuários atualmente online -->
-    <div id="onlineCount">Usuários online: 0</div>
-
-    <script>
-        // Fazendo requisição para o contador de visitas
-        fetch('counter.php')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("visitorCount").innerText = `Total de visitantes: ${data}`;
-            });
-
-        // Função para atualizar o número de usuários online
-        function updateOnlineUsers() {
-            fetch('online.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("onlineCount").innerText = `Usuários online: ${data}`;
-                });
-        }
-
-        // Atualiza o número de usuários online a cada 10 segundos
-        setInterval(updateOnlineUsers, 10000);
-
-        // Chama a função ao carregar a página
-        updateOnlineUsers();
-    </script>
+        <div id="result" class="result">
+            <div id="status"></div>
+            <img id="favicon" alt="Favicon" />
+            <p id="ip"></p>
+            <img id="screenshot" alt="Screenshot do Site" />
+            <p id="description"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
