@@ -1,50 +1,3 @@
-// Configuração do Firebase
-const firebaseConfig = {
-    apiKey: "SUA_API_KEY",
-    authDomain: "SEU_AUTH_DOMAIN",
-    databaseURL: "SUA_DATABASE_URL",
-    projectId: "SEU_PROJECT_ID",
-    storageBucket: "SEU_STORAGE_BUCKET",
-    messagingSenderId: "SEU_MESSAGING_SENDER_ID",
-    appId: "SEU_APP_ID"
-};
-
-// Inicialize o Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
-// Referências do banco de dados
-const visitorsRef = database.ref("visitors");
-const onlineUsersRef = database.ref("onlineUsers");
-
-// Atualizar o número total de visitantes
-visitorsRef.once('value', (snapshot) => {
-    document.getElementById("totalVisitors").textContent = snapshot.val() || 0;
-});
-
-// Atualizar o número de pessoas online
-onlineUsersRef.on('value', (snapshot) => {
-    document.getElementById("onlineUsers").textContent = snapshot.numChildren();
-});
-
-// Adicionar um visitante
-function addVisitor() {
-    const visitorRef = onlineUsersRef.push();
-    visitorRef.set(true);
-
-    // Remover o visitante quando ele sair do site
-    window.addEventListener("beforeunload", () => {
-        visitorRef.remove();
-    });
-
-    // Incrementar o total de visitantes
-    visitorsRef.transaction(currentValue => (currentValue || 0) + 1);
-}
-
-// Chamando a função para adicionar o visitante ao carregar a página
-addVisitor();
-
-// Restante do código que você já possui...
 document.getElementById("checkButton").addEventListener("click", function() {
     const siteInput = document.getElementById("siteInput").value;
     const resultDiv = document.getElementById("result");
@@ -87,13 +40,15 @@ document.getElementById("checkButton").addEventListener("click", function() {
                 const faviconLinks = doc.querySelectorAll("link[rel*='icon']");
 
                 if (faviconLinks.length > 0) {
+                    // Se encontrar links para ícones, pega o primeiro que encontrar
                     faviconUrl = faviconLinks[0].href;
                 } else {
+                    // Tenta buscar o favicon padrão se não encontrar um específico
                     faviconUrl = `${siteInput}/favicon.ico`;
                 }
 
                 faviconImg.src = faviconUrl;
-
+                
                 // Obtendo o IP do site
                 fetch(`https://api.ipify.org?format=json`)
                     .then(response => response.json())
@@ -112,7 +67,7 @@ document.getElementById("checkButton").addEventListener("click", function() {
                 // Descrição do site (meta description)
                 const description = doc.querySelector("meta[name='description']");
                 descriptionText.innerHTML = description ? description.content : 'Descrição não encontrada';
-
+                
                 resultDiv.style.display = 'block';
             }
         })
